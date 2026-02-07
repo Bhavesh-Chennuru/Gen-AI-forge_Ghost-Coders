@@ -38,7 +38,7 @@ def sanitize_history(history_list):
         })
     return new_history
 
-MODEL_ID = "gemini-2.5-flash"
+MODEL_ID = "gemini-3-flash-preview"
 AUDIO_MODEL_ID = "gemini-2.0-flash-exp"
 
 
@@ -238,4 +238,5 @@ def process_audio_turn(user_audio_bytes, system_instruction, chat_history):
         }
 
     except Exception as e:
+
         return f"Error: {str(e)}"

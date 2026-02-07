@@ -1,3 +1,4 @@
+#Made this file to check what models I have lol
 from google import genai
 import os
 from dotenv import load_dotenv
@@ -20,4 +21,5 @@ else:
             print(f"   • {clean_name}")
             
     except Exception as e:
+
         print(f"❌ Error: {e}")

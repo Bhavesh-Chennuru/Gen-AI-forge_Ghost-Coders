@@ -168,21 +168,21 @@ def main_app():
 
     with row2_1:
         with st.container(border=True):
-            icon = get_icon("Live Interview.png")
-            if icon: st.image(icon, width=120)
-            
-            st.markdown("### Live Voice")
-            st.write("Real-time audio meeting with Gemini.")
-            st.page_link("pages/Live Interview.py", label="Start Call", use_container_width=True)
-
-    with row2_2:
-        with st.container(border=True):
             icon = get_icon("Roadmap Builder.png")
             if icon: st.image(icon, width=120)
             
             st.markdown("### Career Roadmap")
             st.write("Generate a custom learning path.")
             st.page_link("pages/Goal Setter.py", label="Plan Career", use_container_width=True)
+
+    with row2_2:
+        with st.container(border=True):
+            icon = get_icon("Quick Quiz.png")
+            if icon: st.image(icon, width=120)
+            
+            st.markdown("### Instant Resume Quiz Generator")
+            st.write("Instant quiz to get you prepared beforehand")
+            st.page_link("pages/Quick Quiz.py", label="Start Quiz", use_container_width=True)
 
     with row2_3:
         with st.container(border=True):

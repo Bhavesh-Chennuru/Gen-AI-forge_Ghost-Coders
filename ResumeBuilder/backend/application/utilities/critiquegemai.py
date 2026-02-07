@@ -240,3 +240,52 @@ def process_audio_turn(user_audio_bytes, system_instruction, chat_history):
     except Exception as e:
 
         return f"Error: {str(e)}"
+
+
+def generate_resume_quiz(resume_text, num_questions, question_type):
+    if question_type == "MCQ":
+        format_instruction = """
+        Output strictly in this JSON format:
+        [
+            {
+                "question": "Question text...",
+                "options": ["Option A", "Option B", "Option C", "Option D"],
+                "correct_answer": "Option A",
+                "explanation": "Why this is correct..."
+            }
+        ]
+        """
+    else:
+        format_instruction = """
+        Output strictly in this JSON format:
+        [
+            {
+                "question": "Question text...",
+                "model_answer": "Expected 2-3 line answer..."
+            }
+        ]
+        """
+
+    prompt = f"""
+    You are a ruthless, high-bar technical interviewer (Dr. Sarah Chen persona). 
+    I need you to generate a strictly structured quiz based on the candidate's resume below.
+    
+    RESUME CONTENT:
+    {resume_text}
+
+    REQUIREMENTS:
+    1. Generate exactly {num_questions} questions.
+    2. Difficulty: Hard/Expert. Focus on gaps, vague claims, and deep technical concepts mentioned.
+    3. Type: {question_type}.
+    4. {format_instruction}
+    
+    Do not output any markdown formatting (like ```json), just the raw JSON string.
+    """
+
+    try:
+        response = client.models.generate_content(model=MODEL_ID, contents=prompt)
+        clean_text = response.text.replace("```json", "").replace("```", "").strip()
+        return json.loads(clean_text)
+    except Exception as e:
+        return [{"question": f"Error generating quiz: {str(e)}", "options": [], "correct_answer": ""}]
+
